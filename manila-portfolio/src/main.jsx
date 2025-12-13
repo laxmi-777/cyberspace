@@ -14,7 +14,7 @@ import ThoughtsDetail from './pages/ThoughtsDetail.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/cyberspace">
         <Routes>
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/who-i-am" element={<Layout><WhoIAm /></Layout>} />
