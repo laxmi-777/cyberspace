@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 const posts = [
   {
@@ -28,11 +29,18 @@ const posts = [
 ];
 
 export default function Thoughts() {
+  const { isDarkMode } = useTheme();
+  const textColor = isDarkMode ? 'text-white' : 'text-gray-900';
+  const subtextColor = isDarkMode ? 'text-gray-300' : 'text-gray-700';
+  const hoverColor = isDarkMode ? 'group-hover:text-blue-400' : 'group-hover:text-blue-600';
+  const borderColor = isDarkMode ? 'border-gray-800' : 'border-gray-200';
+  const dateColor = isDarkMode ? 'text-gray-500' : 'text-gray-600';
+  
   return (
     <div className="max-w-4xl mx-auto p-12 space-y-12">
       <section className="space-y-4">
-        <h1 className="text-4xl font-bold text-white">thoughts</h1>
-        <p className="text-lg text-gray-300 leading-relaxed">
+        <h1 className={`text-4xl font-bold ${textColor}`}>thoughts</h1>
+        <p className={`text-lg ${subtextColor} leading-relaxed`}>
           Writing about design, development, and everything in between
         </p>
       </section>
@@ -42,17 +50,17 @@ export default function Thoughts() {
           <Link
             key={post.slug}
             to={`/thoughts/${post.slug}`}
-            className="block group space-y-2 pb-6 border-b border-gray-800 last:border-0"
+            className={`block group space-y-2 pb-6 border-b ${borderColor} last:border-0`}
           >
             <div className="flex items-start justify-between gap-4">
-              <h2 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">
+              <h2 className={`text-xl font-semibold ${textColor} ${hoverColor} transition-colors`}>
                 {post.title}
               </h2>
-              <span className="text-sm text-gray-500 whitespace-nowrap mt-0.5">
+              <span className={`text-sm ${dateColor} whitespace-nowrap mt-0.5`}>
                 {post.date}
               </span>
             </div>
-            <p className="text-gray-300 leading-relaxed">
+            <p className={`${subtextColor} leading-relaxed`}>
               {post.excerpt}
             </p>
           </Link>
