@@ -14,20 +14,24 @@ export default function WhoIAm() {
           who i am
         </h1>
         <p className={`text-lg ${subtextColor} leading-relaxed`}>
-          I'm a designer and developer focused on creating thoughtful digital experiences.
+          I turn ambiguous ideas into products people actually use.
         </p>
       </section>
 
       <section className="space-y-4">
         <h2 className={`text-2xl font-semibold ${textColor}`}>About</h2>
         <p className={`${subtextColor} leading-relaxed`}>
-          Currently working at the intersection of design and code. I believe in building
-          products that are both beautiful and functional, with careful attention to detail
-          and user experience.
+          I'm Laxmi Ghanate, a computer science student at UVA who works at the intersection of engineering, UX, and clear communication. I'm happiest when I can define the problem, design the workflow, and build the solution — with the kind of structure that makes teams move faster.
         </p>
         <p className={`${subtextColor} leading-relaxed`}>
-          When I'm not working, you'll find me exploring new technologies, reading, or
-          enjoying the outdoors.
+          Right now I'm focused on student-facing tools, human-centered design projects, and building a stronger security mindset into everything I ship.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className={`text-2xl font-semibold ${textColor}`}>What I value</h2>
+        <p className={`${subtextColor} leading-relaxed`}>
+          Clarity &gt; complexity. Shipping &gt; perfect. Secure-by-default &gt; "we'll fix it later."
         </p>
       </section>
 
@@ -35,21 +39,21 @@ export default function WhoIAm() {
         <h2 className={`text-2xl font-semibold ${textColor}`}>Contact</h2>
         <div className={`space-y-2 ${subtextColor}`}>
           <p>
-            <a href="mailto:hello@example.com" className={`${linkColor} transition-colors`}>
-              hello@example.com
+            <span className={subtextColor}>Email: </span>
+            <a href="mailto:laxmi.ghanate07@gmail.com" className={`${linkColor} transition-colors`}>
+              laxmi.ghanate07@gmail.com
             </a>
           </p>
-          <p className="space-x-3">
-            <a href="https://twitter.com/yourusername" className={`${linkColor} transition-colors`}>
-              Twitter
+          <p>
+            <span className={subtextColor}>GitHub: </span>
+            <a href="https://github.com/laxmi-777" className={`${linkColor} transition-colors`} target="_blank" rel="noopener noreferrer">
+              github.com/laxmi-777
             </a>
-            <span className={borderColor}>·</span>
-            <a href="https://github.com/yourusername" className={`${linkColor} transition-colors`}>
-              GitHub
-            </a>
-            <span className={borderColor}>·</span>
-            <a href="https://linkedin.com/in/yourusername" className={`${linkColor} transition-colors`}>
-              LinkedIn
+          </p>
+          <p>
+            <span className={subtextColor}>LinkedIn: </span>
+            <a href="https://www.linkedin.com/in/laxmi-ghanate-33445b255/" className={`${linkColor} transition-colors`} target="_blank" rel="noopener noreferrer">
+              linkedin.com/in/laxmi-ghanate-33445b255
             </a>
           </p>
         </div>
