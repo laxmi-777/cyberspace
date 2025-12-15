@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 const projects = {
   'gradecamp-gradehorizon': {
@@ -310,36 +311,46 @@ const projects = {
 
 export default function WorkDetail() {
   const { slug } = useParams();
+  const { isDarkMode } = useTheme();
+  
+  const textColor = isDarkMode ? 'text-white' : 'text-gray-900';
+  const subtextColor = isDarkMode ? 'text-gray-400' : 'text-gray-600';
+  const bodyColor = isDarkMode ? 'text-gray-300' : 'text-gray-700';
+  const linkColor = isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900';
+  const borderColor = isDarkMode ? 'border-gray-800' : 'border-gray-300';
+  const tagBg = isDarkMode ? 'bg-gray-800' : 'bg-purple-100';
+  const tagText = isDarkMode ? 'text-gray-300' : 'text-purple-800';
+  
   const project = projects[slug];
 
   if (!project) {
     return (
       <div className="max-w-4xl mx-auto p-12 space-y-8">
-        <Link to="/what-i-do" className="inline-block text-gray-400 hover:text-white transition-colors">
+        <Link to="/what-i-do" className={`inline-block ${linkColor} transition-colors`}>
           ← Back to what i do
         </Link>
-        <h1 className="text-4xl font-bold text-white">Project not found</h1>
+        <h1 className={`text-4xl font-bold ${textColor}`}>Project not found</h1>
       </div>
     );
   }
 
   return (
     <div className="max-w-4xl mx-auto p-12 space-y-12">
-      <Link to="/what-i-do" className="inline-block text-gray-400 hover:text-white transition-colors">
+      <Link to="/what-i-do" className={`inline-block ${linkColor} transition-colors`}>
         ← Back to what i do
       </Link>
 
       <section className="space-y-6">
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-4">
-            <h1 className="text-4xl font-bold text-white">{project.title}</h1>
-            <span className="text-sm text-gray-500 whitespace-nowrap mt-2">{project.year}</span>
+            <h1 className={`text-4xl font-bold ${textColor}`}>{project.title}</h1>
+            <span className={`text-sm ${subtextColor} whitespace-nowrap mt-2`}>{project.year}</span>
           </div>
           <div className="flex gap-2">
             {project.categories.map((category) => (
               <span
                 key={category}
-                className="inline-block px-3 py-1 text-xs font-medium text-gray-300 bg-gray-800 rounded-full"
+                className={`inline-block px-3 py-1 text-xs font-medium ${tagText} ${tagBg} rounded-full`}
               >
                 {category}
               </span>
@@ -347,7 +358,7 @@ export default function WorkDetail() {
           </div>
         </div>
 
-        <p className="text-xl text-gray-300 leading-relaxed">
+        <p className={`text-xl ${bodyColor} leading-relaxed`}>
           {project.description}
         </p>
 
@@ -377,7 +388,7 @@ export default function WorkDetail() {
             if (trimmedParagraph.startsWith('###')) {
               const headerText = trimmedParagraph.replace(/^###\s*/, '');
               return (
-                <h3 key={index} className="text-xl font-semibold text-white mt-8 mb-4">
+                <h3 key={index} className={`text-xl font-semibold ${textColor} mt-8 mb-4`}>
                   {headerText}
                 </h3>
               );
@@ -391,7 +402,7 @@ export default function WorkDetail() {
             
             if (isLegacyHeader) {
               return (
-                <h3 key={index} className="text-xl font-semibold text-white mt-8 mb-4">
+                <h3 key={index} className={`text-xl font-semibold ${textColor} mt-8 mb-4`}>
                   {trimmedParagraph}
                 </h3>
               );
@@ -400,14 +411,14 @@ export default function WorkDetail() {
             // Check if paragraph is a bullet point (starts with •)
             if (trimmedParagraph.startsWith('•')) {
               return (
-                <p key={index} className="text-gray-300 leading-relaxed pl-6">
+                <p key={index} className={`${bodyColor} leading-relaxed pl-6`}>
                   {trimmedParagraph}
                 </p>
               );
             }
             
             return (
-              <p key={index} className="text-gray-300 leading-relaxed">
+              <p key={index} className={`${bodyColor} leading-relaxed`}>
                 {trimmedParagraph}
               </p>
             );
@@ -417,10 +428,10 @@ export default function WorkDetail() {
 
       {project.images && (
         <section className="space-y-4">
-          <h3 className="text-xl font-semibold text-white">Screenshots</h3>
+          <h3 className={`text-xl font-semibold ${textColor}`}>Screenshots</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {project.images.map((image, index) => (
-              <div key={index} className="rounded-lg overflow-hidden border border-gray-800">
+              <div key={index} className={`rounded-lg overflow-hidden border ${borderColor}`}>
                 <img 
                   src={image.src} 
                   alt={image.alt}
@@ -432,20 +443,20 @@ export default function WorkDetail() {
         </section>
       )}
 
-      <section className="space-y-4 pt-6 border-t border-gray-800">
+      <section className={`space-y-4 pt-6 border-t ${borderColor}`}>
         <div className="space-y-3">
           {project.status && (
             <div>
-              <h3 className="text-sm font-medium text-white mb-1">Status</h3>
-              <p className="text-gray-300">{project.status}</p>
+              <h3 className={`text-sm font-medium ${textColor} mb-1`}>Status</h3>
+              <p className={bodyColor}>{project.status}</p>
             </div>
           )}
           {project.links && (
             <div>
-              <h3 className="text-sm font-medium text-white mb-1">Links</h3>
+              <h3 className={`text-sm font-medium ${textColor} mb-1`}>Links</h3>
               <div className="space-y-1">
                 {Object.entries(project.links).map(([key, url]) => (
-                  <p key={key} className="text-gray-300">
+                  <p key={key} className={bodyColor}>
                     {key.charAt(0).toUpperCase() + key.slice(1)} page: <a href={url} className="text-purple-400 hover:text-purple-300 transition-colors">{url}</a>
                   </p>
                 ))}
@@ -454,10 +465,10 @@ export default function WorkDetail() {
           )}
           {project.labs && (
             <div>
-              <h3 className="text-sm font-medium text-white mb-1">Lab PDFs</h3>
+              <h3 className={`text-sm font-medium ${textColor} mb-1`}>Lab PDFs</h3>
               <div className="space-y-1">
                 {project.labs.map((lab) => (
-                  <p key={lab.file} className="text-gray-300">
+                  <p key={lab.file} className={bodyColor}>
                     <a 
                       href={`/cyberspace/labs/${lab.file}`} 
                       target="_blank" 
@@ -472,12 +483,12 @@ export default function WorkDetail() {
             </div>
           )}
           <div>
-            <h3 className="text-sm font-medium text-white mb-1">Role</h3>
-            <p className="text-gray-300">{project.role}</p>
+            <h3 className={`text-sm font-medium ${textColor} mb-1`}>Role</h3>
+            <p className={bodyColor}>{project.role}</p>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-white mb-1">Technologies</h3>
-            <p className="text-gray-300">{project.technologies.join(', ')}</p>
+            <h3 className={`text-sm font-medium ${textColor} mb-1`}>Technologies</h3>
+            <p className={bodyColor}>{project.technologies.join(', ')}</p>
           </div>
         </div>
       </section>
