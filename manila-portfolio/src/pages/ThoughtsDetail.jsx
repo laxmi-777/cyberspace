@@ -249,7 +249,3 @@ export default function ThoughtsDetail() {
     </div>
   );
 }
-      </article>
-    </div>
-  );
-}
