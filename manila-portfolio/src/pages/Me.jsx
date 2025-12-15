@@ -218,9 +218,11 @@ export default function WhoIAm() {
         <div className="flex-1 relative min-h-0">
           <canvas
             ref={canvasRef}
-            className="w-full h-full bg-black rounded-lg border border-purple-800/30 cursor-crosshair"
+            className={`w-full h-full rounded-lg border ${isDarkMode ? 'bg-black border-purple-800/30' : 'bg-white border-gray-300'} cursor-crosshair`}
             style={{
-              backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px)',
+              backgroundImage: isDarkMode 
+                ? 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px)' 
+                : 'radial-gradient(circle, rgba(0, 0, 0, 0.2) 1px, transparent 1px)',
               backgroundSize: '24px 24px'
             }}
             onMouseDown={startDrawing}
