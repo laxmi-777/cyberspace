@@ -108,7 +108,7 @@ export default function Layout({ children }) {
           </Link>
           
           <a
-            href="/resume.pdf"
+            href="/cyberspace/resume.pdf"
             className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm ${inactiveText} ${hoverBg} transition-colors`}
             target="_blank"
             rel="noopener noreferrer"
