@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 const posts = {
   'building-this-website': {
@@ -197,28 +198,35 @@ const posts = {
 
 export default function ThoughtsDetail() {
   const { slug } = useParams();
+  const { isDarkMode } = useTheme();
+  
+  const textColor = isDarkMode ? 'text-white' : 'text-gray-900';
+  const subtextColor = isDarkMode ? 'text-gray-400' : 'text-gray-600';
+  const bodyColor = isDarkMode ? 'text-gray-300' : 'text-gray-700';
+  const linkColor = isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900';
+  
   const post = posts[slug];
 
   if (!post) {
     return (
       <div className="max-w-4xl mx-auto p-12 space-y-8">
-        <Link to="/thoughts" className="inline-block text-gray-400 hover:text-white transition-colors">
+        <Link to="/thoughts" className={`inline-block ${linkColor} transition-colors`}>
           ← Back to thoughts
         </Link>
-        <h1 className="text-4xl font-bold text-white">Post not found</h1>
+        <h1 className={`text-4xl font-bold ${textColor}`}>Post not found</h1>
       </div>
     );
   }
 
   return (
     <div className="max-w-4xl mx-auto p-12 space-y-12">
-      <Link to="/thoughts" className="inline-block text-gray-400 hover:text-white transition-colors">
+      <Link to="/thoughts" className={`inline-block ${linkColor} transition-colors`}>
         ← Back to thoughts
       </Link>
 
       <section className="space-y-4">
-        <h1 className="text-4xl font-bold text-white">{post.title}</h1>
-        <p className="text-sm text-gray-500">{post.date}</p>
+        <h1 className={`text-4xl font-bold ${textColor}`}>{post.title}</h1>
+        <p className={`text-sm ${subtextColor}`}>{post.date}</p>
       </section>
 
       <article className="prose prose-gray max-w-none space-y-6">
@@ -226,17 +234,21 @@ export default function ThoughtsDetail() {
           const trimmed = block.trim();
           if (trimmed.startsWith('## ')) {
             return (
-              <h2 key={index} className="text-2xl font-semibold text-white mt-12 mb-4">
+              <h2 key={index} className={`text-2xl font-semibold ${textColor} mt-12 mb-4`}>
                 {trimmed.replace('## ', '')}
               </h2>
             );
           }
           return (
-            <p key={index} className="text-gray-300 leading-relaxed">
+            <p key={index} className={`${bodyColor} leading-relaxed`}>
               {trimmed}
             </p>
           );
         })}
+      </article>
+    </div>
+  );
+}
       </article>
     </div>
   );

@@ -33,8 +33,9 @@ export default function Thoughts() {
   const textColor = isDarkMode ? 'text-white' : 'text-gray-900';
   const subtextColor = isDarkMode ? 'text-gray-400' : 'text-gray-600';
   const hoverColor = isDarkMode ? 'hover:text-purple-400' : 'hover:text-purple-600';
-  const borderColor = isDarkMode ? 'border-gray-800' : 'border-gray-200';
+  const borderColor = isDarkMode ? 'border-gray-800' : 'border-gray-300';
   const bgColor = isDarkMode ? 'bg-[#1e1e1e]' : 'bg-white';
+  const postBg = isDarkMode ? 'bg-transparent' : 'bg-gray-50';
   
   return (
     <div className={`flex-1 ${bgColor} transition-colors duration-500`}>
@@ -51,7 +52,7 @@ export default function Thoughts() {
             <Link
               key={post.slug}
               to={`/thoughts/${post.slug}`}
-              className="block group space-y-3"
+              className={`block group space-y-3 p-6 rounded-lg ${postBg} transition-all hover:shadow-md ${isDarkMode ? '' : 'hover:bg-gray-100'}`}
             >
               <h2 className={`text-2xl font-semibold ${textColor} ${hoverColor} transition-colors`}>
                 {post.title}

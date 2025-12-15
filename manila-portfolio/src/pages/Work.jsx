@@ -118,19 +118,19 @@ export default function WhatIDo() {
     return () => clearInterval(interval);
   }, [activeTab]);
   
-  const bgColor = isDarkMode ? 'bg-[#1e1e1e]' : 'bg-gray-50';
+  const bgColor = isDarkMode ? 'bg-[#1e1e1e]' : 'bg-white';
   const textColor = isDarkMode ? 'text-white' : 'text-gray-900';
-  const subtextColor = isDarkMode ? 'text-gray-300' : 'text-gray-700';
-  const borderColor = isDarkMode ? 'border-gray-800' : 'border-gray-200';
+  const subtextColor = isDarkMode ? 'text-gray-300' : 'text-gray-600';
+  const borderColor = isDarkMode ? 'border-gray-800' : 'border-gray-300';
   const lineNumBg = isDarkMode ? 'bg-[#1e1e1e]' : 'bg-gray-100';
   const lineNumText = isDarkMode ? 'text-gray-600' : 'text-gray-400';
   const hoverColor = isDarkMode ? 'group-hover:text-purple-400' : 'group-hover:text-purple-600';
-  const tagBg = isDarkMode ? 'bg-gray-800' : 'bg-gray-200';
-  const tagText = isDarkMode ? 'text-gray-300' : 'text-gray-700';
+  const tagBg = isDarkMode ? 'bg-gray-800' : 'bg-purple-100';
+  const tagText = isDarkMode ? 'text-gray-300' : 'text-purple-800';
   const yearColor = isDarkMode ? 'text-gray-500' : 'text-gray-600';
-  const inactiveTabBg = isDarkMode ? 'bg-gray-800' : 'bg-gray-200';
-  const inactiveTabText = isDarkMode ? 'text-gray-300' : 'text-gray-700';
-  const inactiveTabHover = isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-300';
+  const inactiveTabBg = isDarkMode ? 'bg-gray-800' : 'bg-gray-100';
+  const inactiveTabText = isDarkMode ? 'text-gray-300' : 'text-gray-600';
+  const inactiveTabHover = isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200';
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -250,7 +250,7 @@ export default function WhatIDo() {
                 <Link
                   key={project.slug}
                   to={`/what-i-do/${project.slug}`}
-                  className={`block group p-6 rounded-lg border ${borderColor} ${isDarkMode ? 'bg-gray-800/50 hover:bg-gray-800' : 'bg-white hover:bg-gray-50'} transition-all hover:border-purple-500 hover:shadow-lg`}
+                  className={`block group p-6 rounded-lg border ${borderColor} ${isDarkMode ? 'bg-gray-800/50 hover:bg-gray-800' : 'bg-gray-50 hover:bg-gray-100'} transition-all hover:border-purple-500 hover:shadow-lg`}
                 >
                   <div className="space-y-4">
                     <div className="flex items-start justify-between gap-4">
