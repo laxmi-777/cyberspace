@@ -42,93 +42,113 @@ export default function Layout({ children }) {
 
   return (
     <div 
-      className={`flex min-h-screen ${bgColor} ${textColor} transition-colors duration-500`}
+      className={`flex flex-col min-h-screen ${bgColor} ${textColor} transition-colors duration-500`}
       onMouseMove={resize}
       onMouseUp={stopResizing}
     >
-      {/* Sidebar */}
-      <aside 
-        className={`${sidebarBg} border-r ${borderColor} flex flex-col relative transition-colors duration-500`}
-        style={{ width: `${sidebarWidth}px`, minWidth: '200px', maxWidth: '500px' }}
-      >
-        <div className={`p-4 border-b ${borderColor} transition-colors duration-500`}>
-          <Link to="/" className={`flex items-center gap-2 text-sm font-medium ${hoverBg} rounded px-2 py-1.5 transition-colors`}>
-            <span className="text-blue-500">L</span>
-            <span>Laxmi Ghanate</span>
-          </Link>
-        </div>
-        
-        <nav className="flex-1 p-3 space-y-1">
-          <Link
-            to="/"
-            className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors ${
-              isActive('/') && location.pathname === '/'
-                ? `${activeBg} ${textColor}`
-                : `${inactiveText} ${hoverBg}`
-            }`}
-          >
-            <span>🏠</span>
-            <span>homepage</span>
-          </Link>
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <aside 
+          className={`${sidebarBg} border-r ${borderColor} flex flex-col relative transition-colors duration-500`}
+          style={{ width: `${sidebarWidth}px`, minWidth: '200px', maxWidth: '500px' }}
+        >
+          <div className={`p-4 border-b ${borderColor} transition-colors duration-500`}>
+            <Link to="/" className={`flex items-center gap-2 text-sm font-medium ${hoverBg} rounded px-2 py-1.5 transition-colors`}>
+              <span className="text-purple-500 font-bold">LG</span>
+              <span>Laxmi Ghanate</span>
+            </Link>
+          </div>
           
-          <Link
-            to="/who-i-am"
-            className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors ${
-              isActive('/who-i-am')
-                ? `${activeBg} ${textColor}`
-                : `${inactiveText} ${hoverBg}`
-            }`}
-          >
-            <span>👤</span>
-            <span>who i am</span>
-          </Link>
-          
-          <Link
-            to="/what-i-do"
-            className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors ${
-              isActive('/what-i-do')
-                ? `${activeBg} ${textColor}`
-                : `${inactiveText} ${hoverBg}`
-            }`}
-          >
-            <span>💼</span>
-            <span>what i do</span>
-          </Link>
-          
-          <Link
-            to="/thoughts"
-            className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors ${
-              isActive('/thoughts')
-                ? `${activeBg} ${textColor}`
-                : `${inactiveText} ${hoverBg}`
-            }`}
-          >
-            <span>💭</span>
-            <span>thoughts</span>
-          </Link>
-          
-          <a
-            href="/cyberspace/resume.pdf"
-            className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm ${inactiveText} ${hoverBg} transition-colors`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span>📄</span>
-            <span>resume</span>
+          <nav className="flex-1 p-3 space-y-1">
+            <Link
+              to="/"
+              className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors ${
+                isActive('/') && location.pathname === '/'
+                  ? `${activeBg} ${textColor}`
+                  : `${inactiveText} ${hoverBg}`
+              }`}
+            >
+              <span>🏠</span>
+              <span>homepage</span>
+            </Link>
+            
+            <Link
+              to="/who-i-am"
+              className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors ${
+                isActive('/who-i-am')
+                  ? `${activeBg} ${textColor}`
+                  : `${inactiveText} ${hoverBg}`
+              }`}
+            >
+              <span>👤</span>
+              <span>who i am</span>
+            </Link>
+            
+            <Link
+              to="/what-i-do"
+              className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors ${
+                isActive('/what-i-do')
+                  ? `${activeBg} ${textColor}`
+                  : `${inactiveText} ${hoverBg}`
+              }`}
+            >
+              <span>💼</span>
+              <span>what i do</span>
+            </Link>
+            
+            <Link
+              to="/thoughts"
+              className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm transition-colors ${
+                isActive('/thoughts')
+                  ? `${activeBg} ${textColor}`
+                  : `${inactiveText} ${hoverBg}`
+              }`}
+            >
+              <span>💭</span>
+              <span>thoughts</span>
+            </Link>
+            
+            <a
+              href="/cyberspace/resume.pdf"
+              className={`flex items-center gap-2 px-2 py-1.5 rounded text-sm ${inactiveText} ${hoverBg} transition-colors`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>📄</span>
+              <span>resume</span>
+            </a>
+          </nav>
+
+          {/* Resize Handle */}
+          <div
+            className={`absolute top-0 right-0 w-1 h-full cursor-col-resize hover:bg-blue-500 transition-colors ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`}
+            onMouseDown={startResizing}
+          />
+        </aside>
+
+        {/* Main Content */}
+        <main className={`flex-1 overflow-auto ${bgColor} transition-colors duration-500`}>
+          {children}
+        </main>
+      </div>
+      
+      {/* Footer - spans full width */}
+      <footer className="bg-purple-900 text-white py-3 px-12">
+        <div className="flex items-center justify-center gap-8 text-sm">
+          <a href="mailto:laxmi.ghanate07@gmail.com" className="flex items-center gap-2 hover:text-purple-300 transition-colors">
+            <span>📧</span>
+            <span>laxmi.ghanate07@gmail.com</span>
           </a>
-        </nav>
-
-        {/* Resize Handle */}
-        <div
-          className={`absolute top-0 right-0 w-1 h-full cursor-col-resize hover:bg-blue-500 transition-colors ${isDarkMode ? 'bg-transparent' : 'bg-transparent'}`}
-          onMouseDown={startResizing}
-        />
-      </aside>
-
-      {/* Main Content */}
-      <main className={`flex-1 overflow-auto ${bgColor} transition-colors duration-500`}>
-        {children}
-      </main>
+          <a href="https://github.com/laxmi-777" className="flex items-center gap-2 hover:text-purple-300 transition-colors" target="_blank" rel="noopener noreferrer">
+            <span>💻</span>
+            <span>GitHub</span>
+          </a>
+          <a href="https://www.linkedin.com/in/laxmi-ghanate-33445b255/" className="flex items-center gap-2 hover:text-purple-300 transition-colors" target="_blank" rel="noopener noreferrer">
+            <span>💼</span>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }

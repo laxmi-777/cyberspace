@@ -3,12 +3,13 @@ import { useTheme } from '../context/ThemeContext.jsx';
 
 export default function Home() {
   const [displayedText, setDisplayedText] = useState('');
-  const fullText = "welcome to laxmi's cyberspace";
+  const fullText = "laxmi ghanate";
   const [isComplete, setIsComplete] = useState(false);
   const [isDisintegrating, setIsDisintegrating] = useState(false);
   const [disintegratedChars, setDisintegratedChars] = useState(new Set());
-  const [isDrawingMode, setIsDrawingMode] = useState(false);
-  const [isDrawing, setIsDrawing] = useState(false);
+  const [showIntro, setShowIntro] = useState(false);
+  const [highlighterActive, setHighlighterActive] = useState(false);
+  const [isHighlighting, setIsHighlighting] = useState(false);
   const [isSwinging, setIsSwinging] = useState(false);
   const { isDarkMode, setIsDarkMode } = useTheme();
   const canvasRef = useRef(null);
@@ -26,18 +27,20 @@ export default function Home() {
   }, [displayedText]);
 
   useEffect(() => {
-    if (isDrawingMode && canvasRef.current) {
+    if (highlighterActive && canvasRef.current) {
       const canvas = canvasRef.current;
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       
       const context = canvas.getContext('2d');
       context.lineCap = 'round';
-      context.strokeStyle = isDarkMode ? 'rgba(59, 130, 246, 0.8)' : 'rgba(37, 99, 235, 0.8)';
-      context.lineWidth = 3;
+      context.lineJoin = 'round';
+      context.strokeStyle = isDarkMode ? 'rgba(168, 85, 247, 0.08)' : 'rgba(147, 51, 234, 0.1)';
+      context.lineWidth = 24;
+      context.globalCompositeOperation = 'source-over';
       contextRef.current = context;
     }
-  }, [isDrawingMode, isDarkMode]);
+  }, [highlighterActive, isDarkMode]);
 
   const handleTextInteraction = () => {
     if (isComplete && !isDisintegrating) {
@@ -53,8 +56,9 @@ export default function Home() {
       });
 
       setTimeout(() => {
-        setIsDrawingMode(true);
-      }, shuffled.length * 20 + 800);
+        setShowIntro(true);
+        setHighlighterActive(true);
+      }, shuffled.length * 20 + 500);
     }
   };
 
@@ -67,24 +71,24 @@ export default function Home() {
   };
 
   const startDrawing = ({ nativeEvent }) => {
-    if (!isDrawingMode) return;
+    if (!highlighterActive) return;
     const { offsetX, offsetY } = nativeEvent;
     contextRef.current.beginPath();
     contextRef.current.moveTo(offsetX, offsetY);
-    setIsDrawing(true);
+    setIsHighlighting(true);
   };
 
   const draw = ({ nativeEvent }) => {
-    if (!isDrawing || !isDrawingMode) return;
+    if (!isHighlighting || !highlighterActive) return;
     const { offsetX, offsetY } = nativeEvent;
     contextRef.current.lineTo(offsetX, offsetY);
     contextRef.current.stroke();
   };
 
   const stopDrawing = () => {
-    if (!isDrawingMode) return;
+    if (!highlighterActive) return;
     contextRef.current.closePath();
-    setIsDrawing(false);
+    setIsHighlighting(false);
   };
 
   const getRandomTransform = () => {
@@ -136,7 +140,7 @@ export default function Home() {
               style={{ transform: 'rotate(180deg)' }}
             >
               {/* Bulb glow effect when lit */}
-              {isDarkMode && (
+              {!isDarkMode && (
                 <circle 
                   cx="24" 
                   cy="24" 
@@ -149,8 +153,8 @@ export default function Home() {
               {/* Main bulb shape */}
               <path
                 d="M24 4 C14 4 8 10 8 20 C8 26 10 30 14 36 L14 44 L34 44 L34 36 C38 30 40 26 40 20 C40 10 34 4 24 4 Z"
-                fill={isDarkMode ? '#FCD34D' : '#D1D5DB'}
-                stroke={isDarkMode ? '#F59E0B' : '#9CA3AF'}
+                fill={isDarkMode ? '#D1D5DB' : '#FCD34D'}
+                stroke={isDarkMode ? '#9CA3AF' : '#F59E0B'}
                 strokeWidth="1"
                 className="transition-colors duration-300"
               />
@@ -161,16 +165,16 @@ export default function Home() {
                 y="44"
                 width="20"
                 height="8"
-                fill={isDarkMode ? '#9CA3AF' : '#6B7280'}
+                fill={isDarkMode ? '#6B7280' : '#9CA3AF'}
                 className="transition-colors duration-300"
               />
               
               {/* Base lines */}
-              <line x1="14" y1="47" x2="34" y2="47" stroke={isDarkMode ? '#6B7280' : '#4B5563'} strokeWidth="1" />
-              <line x1="14" y1="49" x2="34" y2="49" stroke={isDarkMode ? '#6B7280' : '#4B5563'} strokeWidth="1" />
+              <line x1="14" y1="47" x2="34" y2="47" stroke={isDarkMode ? '#4B5563' : '#6B7280'} strokeWidth="1" />
+              <line x1="14" y1="49" x2="34" y2="49" stroke={isDarkMode ? '#4B5563' : '#6B7280'} strokeWidth="1" />
               
               {/* Filament (only visible when on) */}
-              {isDarkMode && (
+              {!isDarkMode && (
                 <path
                   d="M20 18 L22 24 L26 24 L28 18"
                   stroke="#F59E0B"
@@ -187,7 +191,7 @@ export default function Home() {
                 rx="4"
                 ry="6"
                 fill="white"
-                opacity={isDarkMode ? "0.3" : "0.2"}
+                opacity={isDarkMode ? "0.2" : "0.3"}
               />
               
               {/* Gradients */}
@@ -202,24 +206,21 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Grid Background */}
+      {/* Dot Grid Background */}
       <div 
-        className="absolute inset-0 opacity-30 transition-opacity duration-500"
+        className="absolute inset-0 transition-opacity duration-500"
         style={{
-          backgroundImage: `
-            linear-gradient(${gridColor} 1px, transparent 1px),
-            linear-gradient(90deg, ${gridColor} 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px'
+          backgroundImage: `radial-gradient(circle, ${isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.25)'} 1px, transparent 1px)`,
+          backgroundSize: '24px 24px'
         }}
       />
       
       {/* Drawing Canvas */}
-      {isDrawingMode && (
+      {highlighterActive && (
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 z-50"
-          style={{ cursor: 'url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyAyMUwxOSA1TDE5IDEwTDcgMjJMMy4yNSAyMC43NUwyIDIxWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=") 0 24, auto' }}
+          className="absolute inset-0 z-30 pointer-events-auto"
+          style={{ cursor: 'crosshair' }}
           onMouseDown={startDrawing}
           onMouseMove={draw}
           onMouseUp={stopDrawing}
@@ -228,9 +229,9 @@ export default function Home() {
       )}
       
       {/* Content */}
-      <div className="relative h-full flex items-center justify-center">
-        <div className="text-center space-y-6 px-4">
-          {!isDrawingMode && (
+      <div className="relative h-full flex items-center justify-center z-20 pointer-events-none">
+        <div className="text-center space-y-6 px-4 pointer-events-auto">
+          {!showIntro && (
             <>
               <h1 
                 className={`text-5xl md:text-7xl font-bold ${textColor} min-h-[1.2em] cursor-pointer select-none transition-colors duration-500`}
@@ -264,6 +265,20 @@ export default function Home() {
               </p>
             </>
           )}
+          
+          {showIntro && (
+            <div className={`${textColor} text-left max-w-3xl mx-auto space-y-4 transition-opacity duration-1000 ${showIntro ? 'opacity-100' : 'opacity-0'}`}>
+              <p className="text-lg leading-relaxed">
+                Hi there! I'm Laxmi Ghanate. You can find the basics on my homepage and my resume. I'm currently freelancing, and I'm studying Computer Science at the University of Virginia (2023–2026).
+              </p>
+              <p className="text-lg leading-relaxed">
+                This site is where I keep notes on what I'm building and learning — web dev, design, product thinking, and occasionally security/CTF stuff. I also go back and edit old posts when I change my mind or something becomes outdated, so don't treat anything here like it's carved in stone. Opinions are my own, and I'm not speaking for UVA, past teams, or any clients. Feel free to reach out if you want to chat about anything you see here!
+              </p>
+              <p className="text-lg leading-relaxed">
+                This was made with React + Vite, styled with Tailwind, and routed with React Router. I'm hosting it on GitHub Pages with a GitHub Actions workflow for deploys. The dark/light theme uses React Context, and a lot of the "fun" UI (the purple highlighter, typing/text effects, and animations) is custom — mostly Canvas + CSS. I kept the stack lightweight on purpose. Hope you like it :) If you have any thoughts reach out!
+              </p>
+            </div>
+          )}
         </div>
       </div>
       
@@ -275,6 +290,10 @@ export default function Home() {
           0%, 100% { transform: rotate(0deg); }
           25% { transform: rotate(15deg); }
           75% { transform: rotate(-15deg); }
+        }
+        
+        .highlighter-cursor {
+          cursor: url("data:image/svg+xml;charset=UTF-8,%3csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='6' fill='%23a855f7'/%3e%3ccircle cx='8' cy='8' r='2' fill='white'/%3e%3c/svg%3e") 8 8, auto;
         }
       `}</style>
     </div>

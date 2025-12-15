@@ -3,69 +3,69 @@ import { useTheme } from '../context/ThemeContext.jsx';
 
 const posts = [
   {
-    slug: 'building-better-interfaces',
-    title: 'Building Better Interfaces',
-    date: 'Dec 10, 2024',
-    excerpt: 'Thoughts on creating intuitive user experiences that feel natural and effortless.',
+    slug: 'building-this-website',
+    title: 'Building This Website',
+    date: 'Dec 15, 2025',
+    excerpt: 'My experience iterating and building this portfolio with Claude Sonnet 4.5—what worked, what didn\'t, and what I learned about AI-assisted development.',
   },
   {
-    slug: 'design-systems-that-scale',
-    title: 'Design Systems That Scale',
-    date: 'Nov 22, 2024',
-    excerpt: 'Lessons learned from implementing design systems in growing organizations.',
+    slug: 'what-university-taught-me',
+    title: 'What University Has Taught Me',
+    date: 'Dec 12, 2025',
+    excerpt: 'Beyond lectures and exams—lessons about collaboration, failure, and finding your own path in a sea of expectations.',
   },
   {
-    slug: 'minimalism-in-web-design',
-    title: 'Minimalism in Web Design',
-    date: 'Oct 15, 2024',
-    excerpt: 'Why less is often more when it comes to digital product design.',
+    slug: 'trying-to-be-more-creative',
+    title: 'Trying to Be More Creative',
+    date: 'Dec 8, 2025',
+    excerpt: 'Creativity isn\'t about waiting for inspiration. It\'s about showing up, experimenting, and letting yourself make things that don\'t have to be perfect.',
   },
   {
-    slug: 'the-value-of-whitespace',
-    title: 'The Value of Whitespace',
-    date: 'Sep 8, 2024',
-    excerpt: 'How negative space enhances readability and creates visual hierarchy.',
+    slug: 'the-value-of-side-projects',
+    title: 'The Value of Side Projects',
+    date: 'Nov 28, 2025',
+    excerpt: 'Side projects aren\'t just resume padding—they\'re where you learn what you actually care about building when no one\'s telling you what to do.',
   },
 ];
 
 export default function Thoughts() {
   const { isDarkMode } = useTheme();
   const textColor = isDarkMode ? 'text-white' : 'text-gray-900';
-  const subtextColor = isDarkMode ? 'text-gray-300' : 'text-gray-700';
-  const hoverColor = isDarkMode ? 'group-hover:text-blue-400' : 'group-hover:text-blue-600';
+  const subtextColor = isDarkMode ? 'text-gray-400' : 'text-gray-600';
+  const hoverColor = isDarkMode ? 'hover:text-purple-400' : 'hover:text-purple-600';
   const borderColor = isDarkMode ? 'border-gray-800' : 'border-gray-200';
-  const dateColor = isDarkMode ? 'text-gray-500' : 'text-gray-600';
+  const bgColor = isDarkMode ? 'bg-[#1e1e1e]' : 'bg-white';
   
   return (
-    <div className="max-w-4xl mx-auto p-12 space-y-12">
-      <section className="space-y-4">
-        <h1 className={`text-4xl font-bold ${textColor}`}>thoughts</h1>
-        <p className={`text-lg ${subtextColor} leading-relaxed`}>
-          Writing about design, development, and everything in between
-        </p>
-      </section>
+    <div className={`flex-1 ${bgColor} transition-colors duration-500`}>
+      <div className="max-w-2xl mx-auto px-6 py-16 space-y-16">
+        <section className="space-y-3">
+          <h1 className={`text-5xl font-bold ${textColor}`}>thoughts</h1>
+          <p className={`text-lg ${subtextColor}`}>
+            Writing about things I'm learning and thinking about
+          </p>
+        </section>
 
-      <section className="space-y-6">
-        {posts.map((post) => (
-          <Link
-            key={post.slug}
-            to={`/thoughts/${post.slug}`}
-            className={`block group space-y-2 pb-6 border-b ${borderColor} last:border-0`}
-          >
-            <div className="flex items-start justify-between gap-4">
-              <h2 className={`text-xl font-semibold ${textColor} ${hoverColor} transition-colors`}>
+        <section className="space-y-12">
+          {posts.map((post) => (
+            <Link
+              key={post.slug}
+              to={`/thoughts/${post.slug}`}
+              className="block group space-y-3"
+            >
+              <h2 className={`text-2xl font-semibold ${textColor} ${hoverColor} transition-colors`}>
                 {post.title}
               </h2>
-              <span className={`text-sm ${dateColor} whitespace-nowrap mt-0.5`}>
+              <p className={`${subtextColor} leading-relaxed`}>
+                {post.excerpt}
+              </p>
+              <div className={`text-sm ${subtextColor}`}>
                 {post.date}
-              </span>
-            </div>
-            <p className={`${subtextColor} leading-relaxed`}>
-              {post.excerpt}
-            </p>
-          </Link>
-        ))}
-      </section>
+              </div>
+            </Link>
+          ))}
+        </section>
+      </div>
     </div>
   );
 }

@@ -1,125 +1,196 @@
 import { useParams, Link } from 'react-router-dom';
 
 const posts = {
-  'building-better-interfaces': {
-    title: 'Building Better Interfaces',
-    date: 'Dec 10, 2024',
+  'building-this-website': {
+    title: 'Building This Website',
+    date: 'Dec 15, 2025',
     content: `
-      Creating intuitive user interfaces is both an art and a science. It requires understanding
-      not just what users want to accomplish, but how they think about the tasks they're trying
-      to complete.
+      I built this portfolio entirely through conversation with Claude Sonnet 4.5. Not by writing the code myself and asking for help—by describing what I wanted and letting the AI figure out how to make it happen.
 
-      The best interfaces feel invisible—they get out of the way and let users focus on their
-      goals. This requires careful attention to information hierarchy, clear visual design, and
-      thoughtful interaction patterns.
+      ## Why I did this
 
-      ## Start with user needs
+      I wanted to see what it's actually like to build something real using AI as the primary developer. Not a toy project or a demo, but a full portfolio site with custom interactions, animations, and real content.
 
-      Before designing any interface, spend time understanding who your users are and what they're
-      trying to accomplish. User research, interviews, and observation can reveal insights that
-      aren't obvious from assumptions.
+      The experience was... interesting. And honestly, better than I expected.
 
-      ## Keep it simple
+      ## What worked really well
 
-      Simplicity is harder than complexity. It requires making difficult decisions about what to
-      include and, more importantly, what to leave out. Every element should serve a purpose.
+      **Iteration speed**: I could say "make the sidebar narrower" or "change this to purple" and it would just happen. No context switching between design and implementation—just conversation.
 
-      ## Test and iterate
+      **Complex features**: Things like the drawing canvas on the homepage and the "Who I Am" page, the typing animations, the interactive plant that grows when you click it—all of these came from simple requests. Claude handled the React hooks, canvas API, event handlers, and state management without me needing to dig into the details.
 
-      No interface is perfect on the first try. Regular testing with real users reveals problems
-      and opportunities for improvement that you might never discover on your own.
+      **Design decisions**: I gave vague direction like "make it feel more intentional" or "add something playful here" and it would suggest specific implementations. Sometimes they worked perfectly, sometimes we iterated, but the creative back-and-forth felt collaborative.
 
-      The goal is to create experiences that feel natural and effortless, where users can accomplish
-      their goals without friction or confusion.
+      ## What was harder than expected
+
+      **Precision**: Sometimes I'd ask for something and it would misunderstand the scope. Like when I wanted the drawing sidebar to "stretch to the footer"—it took a few tries to get the positioning right because describing spatial layouts in words is surprisingly ambiguous.
+
+      **Debugging**: When something didn't work, I couldn't just open dev tools and fix it myself. I had to describe what was wrong and trust that Claude would find the issue. Usually it did, but it felt slower than just fixing it directly.
+
+      **Knowing what's possible**: I had to already know what features I wanted. Claude is great at implementation but it doesn't proactively suggest "hey, you should add this." The creative direction was still on me.
+
+      ## What I learned
+
+      This workflow works best when you have a clear vision but don't want to get bogged down in implementation details. It's like having a really fast developer who does exactly what you ask, but doesn't read your mind.
+
+      The handoff between idea and execution is *way* faster, but you still need to know what you want. AI doesn't replace product sense or design intuition—it just removes the friction of translating those ideas into code.
+
+      ## Would I do this again?
+
+      Absolutely. For projects where I care more about the end result than the process of writing code, this is game-changing. I got a fully custom portfolio site in a fraction of the time it would have taken me to code it myself, and it does exactly what I wanted.
+
+      That said, I still love writing code. This approach is a tool, not a replacement. Sometimes I want the control and satisfaction of building something line by line. But for projects like this? Where I just want it to exist and work well? This is the way.
+
+      ## The takeaway
+
+      We're at a weird point where AI can build real, production-quality software through natural language conversation. It's not perfect, but it's shockingly capable. The bottleneck isn't the AI's ability to code—it's your ability to communicate what you want clearly and iterate thoughtfully.
+
+      If you're someone who knows what good software looks like but doesn't want to spend weeks building it yourself, this is worth trying. The future of development might not be "no code"—it might just be "different code," written by AI from your specifications.
     `,
   },
-  'design-systems-that-scale': {
-    title: 'Design Systems That Scale',
-    date: 'Nov 22, 2024',
+  'what-university-taught-me': {
+    title: 'What University Has Taught Me',
+    date: 'Dec 12, 2025',
     content: `
-      A design system is more than just a component library or style guide. It's a shared language
-      that enables teams to work together more effectively and ship better products faster.
+      University is weird. You show up thinking it's about lectures and exams and getting good grades. And sure, that's part of it. But the real lessons? They happen everywhere else.
 
-      ## Why design systems matter
+      ## Learning to work with people
 
-      As organizations grow, maintaining consistency becomes increasingly challenging. Different
-      teams may solve the same problems in different ways, leading to inconsistent experiences
-      and wasted effort.
+      The most valuable thing I've learned at UVA isn't in any CS textbook. It's how to collaborate with people who think completely differently than you do.
 
-      A well-implemented design system addresses these challenges by providing reusable components,
-      clear guidelines, and shared principles that align teams around common goals.
+      Group projects force you to figure out how to communicate technical ideas clearly, how to delegate without micromanaging, and how to navigate disagreements without burning bridges. These skills matter way more in the real world than knowing the optimal time complexity of a sorting algorithm.
 
-      ## Building for growth
+      ## Failure is just data
 
-      The best design systems are built with growth in mind. They're flexible enough to adapt to
-      new use cases while maintaining consistency across all implementations.
+      In university, you're allowed to fail in low-stakes ways. A bad grade on one assignment doesn't ruin your career. A project that doesn't work out is just a learning experience.
 
-      This requires careful planning, clear documentation, and ongoing maintenance. It's not a
-      one-time project but an evolving foundation for your products.
+      I've learned to treat failure as feedback, not as a verdict on my abilities. That mindset shift has made me more willing to take risks and try things I'm not sure I can pull off.
 
-      ## Getting started
+      ## There's no "right" path
 
-      Start small and focus on the most common patterns in your products. Build momentum with
-      quick wins before tackling more complex challenges. Most importantly, involve your team
-      in the process—adoption depends on buy-in.
+      One of the biggest realizations I've had is that everyone's path looks different, and that's okay. Some people know exactly what they want to do and go all-in. Others are still figuring it out senior year.
+
+      University gives you the space to explore different interests, take random electives, and discover what actually excites you. I've learned to stop comparing my path to other people's and focus on what feels right for me.
+
+      ## Independence requires structure
+
+      Being on your own for the first time is liberating, but it's also overwhelming. No one's telling you when to study, when to sleep, when to eat. You have to build your own systems.
+
+      I've learned that freedom without structure just leads to chaos. Routines, deadlines, and accountability are what make independence actually work.
+
+      ## The best learning happens outside class
+
+      Honestly, some of my most valuable learning experiences at UVA had nothing to do with coursework. Side projects, internships, hackathons, consulting work—that's where theory meets reality.
+
+      Class teaches you the fundamentals, but real learning happens when you apply those fundamentals to messy, real-world problems that don't have clean answers.
+
+      ## It's okay to not have it all figured out
+
+      I'm still at UVA and I don't have my whole career mapped out. And I've learned that's completely normal. University isn't about having all the answers—it's about learning how to ask better questions and being okay with uncertainty.
+
+      The people who seem like they have it all figured out? They're probably just as confused as everyone else. They're just better at faking confidence.
     `,
   },
-  'minimalism-in-web-design': {
-    title: 'Minimalism in Web Design',
-    date: 'Oct 15, 2024',
+  'trying-to-be-more-creative': {
+    title: 'Trying to Be More Creative',
+    date: 'Dec 8, 2025',
     content: `
-      Minimalism in web design isn't about removing features or making things harder to use.
-      It's about focusing on what truly matters and eliminating everything that doesn't.
+      I used to think creativity was something you either had or you didn't. Like some people were just born creative and the rest of us had to accept being boring and practical.
 
-      ## The power of restraint
+      Turns out, that's not how it works.
 
-      Every element you add to a page competes for attention. By using restraint and only
-      including what's necessary, you make it easier for users to focus on what's important.
+      ## Creativity is a practice, not a personality trait
 
-      This doesn't mean designs need to be boring or austere. Minimalism done well can be
-      beautiful, engaging, and highly effective.
+      The more I've tried to be creative, the more I've realized it's not about waiting for inspiration to strike. It's about showing up and making things, even when you don't feel inspired.
 
-      ## Focus on content
+      You don't wait until you're "in the mood" to write code. You just write code and figure it out as you go. Creativity works the same way.
 
-      When you strip away unnecessary decoration and complexity, content becomes the star.
-      Good typography, thoughtful spacing, and clear hierarchy let your message shine through.
+      ## Permission to make bad things
 
-      ## Performance benefits
+      One of the biggest blockers to creativity is the fear of making something bad. So you don't make anything at all, because at least then you can't be judged.
 
-      Minimal designs tend to be faster and more performant. Fewer elements mean less code,
-      smaller file sizes, and faster load times—all of which improve the user experience.
+      I've been trying to give myself permission to make things that aren't perfect. This portfolio, for example, is full of experimental features that might be weird or over the top. But that's the point. If everything I made had to be polished and professional, I'd never try anything new.
 
-      The key is knowing what to keep and what to remove, and having the confidence to trust
-      that less really can be more.
+      ## Constraints make you more creative
+
+      Ironically, having *fewer* options often leads to more creative solutions. When you can do anything, you get paralyzed by choice. When you have limits, you have to get creative within those boundaries.
+
+      I've found that setting constraints—like "I have to finish this in one day" or "I can only use these three colors"—forces me to focus and come up with ideas I wouldn't have thought of otherwise.
+
+      ## Inspiration comes from weird places
+
+      Some of my best ideas have come from completely unrelated things. A conversation with a friend. A random design I saw on a website. A video game mechanic that made me think differently about interaction design.
+
+      Creativity isn't about having original ideas out of nowhere. It's about connecting things that don't usually go together and seeing what happens.
+
+      ## It's okay to copy (at first)
+
+      When I was first learning to code, I copied a lot. I'd find a tutorial, follow it step by step, and then try to modify it slightly to make it my own.
+
+      That's how you learn. You imitate until you understand the patterns, and then you start experimenting. Creativity isn't about never being influenced by other people's work—it's about taking inspiration and making it your own.
+
+      ## You have to care less about what people think
+
+      The biggest killer of creativity is worrying too much about what other people will think. So you sand down all the weird edges and end up with something safe and boring.
+
+      I've been trying to lean into the weird stuff. The interactive plant that grows when you click it? The drawing canvas on the homepage? Those aren't "professional portfolio" features. But they're fun and they make the site feel more like *me*.
+
+      ## Creativity is just trying stuff
+
+      At the end of the day, creativity isn't some mystical skill that only certain people have. It's just being willing to try things, make mistakes, and iterate until something clicks.
+
+      You don't need to be "a creative person" to be creative. You just need to care enough to keep making things.
     `,
   },
-  'the-value-of-whitespace': {
-    title: 'The Value of Whitespace',
-    date: 'Sep 8, 2024',
+  'the-value-of-side-projects': {
+    title: 'The Value of Side Projects',
+    date: 'Nov 28, 2025',
     content: `
-      Whitespace—also called negative space—is one of the most powerful tools in a designer's
-      toolkit. Yet it's often undervalued or seen as "empty" space that needs to be filled.
+      Side projects have a reputation for being resume padding. You build something, take some screenshots, write a nice description, and hope it impresses recruiters.
 
-      ## Creating breathing room
+      But I think that misses the point.
 
-      Whitespace gives content room to breathe. It improves readability, reduces cognitive load,
-      and makes interfaces feel less cluttered and overwhelming.
+      ## Side projects are where you learn what you care about
 
-      Generous spacing around important elements draws attention to them and makes hierarchies
-      clear. Users can quickly understand what's important and how different elements relate.
+      In school, someone tells you what to build. In internships, someone gives you a ticket and a deadline. But with side projects, *you* decide what's worth building.
 
-      ## Guiding the eye
+      That freedom is where you figure out what kind of work actually excites you. Do you like polishing UX details? Optimizing performance? Building developer tools? You won't know until you try.
 
-      Strategic use of whitespace guides users through a page in a logical flow. It creates
-      natural breaks between sections and helps organize information in a way that feels intuitive.
+      ## You learn by solving real problems
 
-      ## A sign of quality
+      Class projects are sanitized. The requirements are clear, the scope is defined, and there's a rubric telling you exactly what "good" looks like.
 
-      Whitespace is often associated with luxury and quality. Brands that use generous spacing
-      in their designs feel more premium and confident. It shows restraint and attention to detail.
+      Real projects are messy. Requirements change. Users want things you didn't plan for. You have to make trade-offs between features, performance, and maintainability. That's where the actual learning happens.
 
-      Don't be afraid of whitespace. Learn to use it deliberately as an active element in your
-      designs, not just as the space left over between other elements.
+      ## No one cares if you fail
+
+      The best thing about side projects is that failure is consequence-free. If a project doesn't work out, you just move on. No bad grade. No disappointed stakeholders. Just lessons learned.
+
+      That freedom to fail makes you more willing to try ambitious things. Some of my best learning experiences came from projects that completely fell apart halfway through.
+
+      ## They're proof you care
+
+      Recruiters see a lot of resumes with coursework and internships. Everyone has those. But side projects? Those show you care enough to build things when no one's making you.
+
+      It's not about having a perfect, polished portfolio. It's about showing that you're the kind of person who gets excited about building things and actually follows through.
+
+      ## The best side projects are scratching your own itch
+
+      The projects I've stuck with the longest are the ones that solve a problem I actually have. GradeHorizon exists because I wanted a better way to track my grades. This portfolio exists because I wanted a space that felt like me.
+
+      When you're building something you actually want to use, motivation isn't a problem. You care about the details because *you're* the user.
+
+      ## Don't optimize for your resume
+
+      The worst side projects are the ones you build just because you think they'll look good. You pick trendy tech, add a bunch of features you don't care about, and burn out halfway through.
+
+      Build things you'd actually want to use. Or things that sound fun. Or things that teach you something you're curious about. The resume value is a side effect, not the goal.
+
+      ## It's okay to abandon projects
+
+      Not every side project needs to be finished. Some are just experiments. Some are learning exercises. Some you lose interest in, and that's fine.
+
+      The value isn't in having a portfolio full of completed projects. It's in the process of building, iterating, and learning along the way.
     `,
   },
 };

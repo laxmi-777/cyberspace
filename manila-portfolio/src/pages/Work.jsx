@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext.jsx';
 
 const projectData = {
@@ -7,8 +7,15 @@ const projectData = {
     subtitle: 'Full-stack development, UX design, and technical projects',
     projects: [
       {
+        slug: 'sustainability-calculator-fullstack',
+        title: 'Sustainability Calculator: Full-Stack Build + DevOps Cleanup',
+        description: 'Built and deployed a Django web app for carbon footprint calculation—took over DevOps when deployment pipeline broke',
+        year: '2025',
+        categories: ['Development', 'Django', 'DevOps'],
+      },
+      {
         slug: 'gradecamp-gradehorizon',
-        title: 'GradeCamp / GradeHorizon',
+        title: 'GradeHorizon',
         description: 'Built an interactive grade planner that lets students track classes, add assignments, and see real-time "what I need on the final" scenarios',
         year: '2025',
         categories: ['Development', 'UX', 'JavaScript'],
@@ -47,6 +54,13 @@ const projectData = {
     subtitle: 'Product strategy, research translation, and project coordination',
     projects: [
       {
+        slug: 'sustainability-calculator',
+        title: 'Sustainability Calculator: Requirements Management',
+        description: 'Defined tool behavior, assumptions, and acceptance criteria to turn a moral idea into a defensible decision system',
+        year: '2025',
+        categories: ['Requirements', 'Systems', 'Documentation'],
+      },
+      {
         slug: 'hoosactive-research',
         title: 'HoosActive: Research → Requirements → Metrics',
         description: 'Led the "make it measurable" work: turned user interviews/personas into clear requirements and evaluation metrics for the final product direction',
@@ -54,25 +68,11 @@ const projectData = {
         categories: ['Research', 'Strategy', 'Metrics'],
       },
       {
-        slug: 'grade-tool-mvp',
-        title: 'Grade Tool: Scope & MVP Planning',
-        description: 'Broke a big idea into a shippable MVP: prioritized features, wrote acceptance criteria, and planned a roadmap (including syllabus upload + AI analysis)',
+        slug: 'ai-iot-risk-analysis',
+        title: 'Risk Analysis of AI-Driven Cybersecurity in Smart Home IoT Systems',
+        description: 'Built a layered risk framework for smart home security: threat prioritization, attack modeling, resilience analysis, and recovery dynamics',
         year: '2025',
-        categories: ['Product', 'Planning', 'Documentation'],
-      },
-      {
-        slug: 'security-findings',
-        title: 'Security Findings: Risk Communication',
-        description: 'Practice writing security findings so a non-technical audience can act: issue → impact → recommendation, with clear next steps and minimal jargon',
-        year: '2025',
-        categories: ['Communication', 'Risk', 'Clarity'],
-      },
-      {
-        slug: 'team-delivery',
-        title: 'Team Delivery: Coordination & Process',
-        description: 'Organized work across teammates using lightweight structure (checklists, deadlines, "definition of done"), keeping deliverables moving without drama',
-        year: '2025',
-        categories: ['Process', 'Leadership', 'Execution'],
+        categories: ['Risk Analysis', 'Systems', 'Security'],
       },
     ],
   },
@@ -80,7 +80,43 @@ const projectData = {
 
 export default function WhatIDo() {
   const [activeTab, setActiveTab] = useState('software-engineering');
+  const [displayedText, setDisplayedText] = useState('');
+  const fullText = "what i do";
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+  const [subtitleDisplayed, setSubtitleDisplayed] = useState('');
+  const [isSubtitleComplete, setIsSubtitleComplete] = useState(false);
+  const [plantSize, setPlantSize] = useState(1);
   const { isDarkMode } = useTheme();
+
+  useEffect(() => {
+    if (displayedText.length < fullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(fullText.slice(0, displayedText.length + 1));
+      }, 80);
+      return () => clearTimeout(timeout);
+    } else {
+      setIsTypingComplete(true);
+    }
+  }, [displayedText]);
+
+  useEffect(() => {
+    const currentSubtitle = projectData[activeTab].subtitle;
+    setSubtitleDisplayed('');
+    setIsSubtitleComplete(false);
+    
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < currentSubtitle.length) {
+        setSubtitleDisplayed(currentSubtitle.slice(0, index + 1));
+        index++;
+      } else {
+        setIsSubtitleComplete(true);
+        clearInterval(interval);
+      }
+    }, 30);
+    
+    return () => clearInterval(interval);
+  }, [activeTab]);
   
   const bgColor = isDarkMode ? 'bg-[#1e1e1e]' : 'bg-gray-50';
   const textColor = isDarkMode ? 'text-white' : 'text-gray-900';
@@ -88,7 +124,7 @@ export default function WhatIDo() {
   const borderColor = isDarkMode ? 'border-gray-800' : 'border-gray-200';
   const lineNumBg = isDarkMode ? 'bg-[#1e1e1e]' : 'bg-gray-100';
   const lineNumText = isDarkMode ? 'text-gray-600' : 'text-gray-400';
-  const hoverColor = isDarkMode ? 'group-hover:text-blue-400' : 'group-hover:text-blue-600';
+  const hoverColor = isDarkMode ? 'group-hover:text-purple-400' : 'group-hover:text-purple-600';
   const tagBg = isDarkMode ? 'bg-gray-800' : 'bg-gray-200';
   const tagText = isDarkMode ? 'text-gray-300' : 'text-gray-700';
   const yearColor = isDarkMode ? 'text-gray-500' : 'text-gray-600';
@@ -110,21 +146,65 @@ export default function WhatIDo() {
   const currentData = projectData[activeTab];
 
   return (
-    <div className="flex h-full">
-      {/* Line numbers sidebar */}
-      <div className={`w-12 ${lineNumBg} border-r ${borderColor} flex-shrink-0 py-12 px-2 transition-colors duration-500`}>
-        <div className={`flex flex-col items-end text-xs ${lineNumText} font-mono leading-6`}>
-          {Array.from({ length: 30 }, (_, i) => (
-            <span key={i}>{i}</span>
-          ))}
-        </div>
-      </div>
-
-      {/* Content area */}
-      <div className={`flex-1 overflow-auto ${bgColor} transition-colors duration-500`}>
-        <div className="max-w-4xl mx-auto p-12 space-y-8">
-          <section className="space-y-4">
-            <h1 className={`text-4xl font-bold ${textColor} font-mono`}>what i do</h1>
+    <div className={`flex-1 overflow-auto ${bgColor} transition-colors duration-500`}>
+      <div className="max-w-4xl mx-auto p-12 space-y-8">
+        <section className="space-y-4">
+          <div className="flex items-center gap-6">
+            <h1 className={`text-4xl font-bold ${textColor} font-mono`}>
+              {displayedText}
+              {!isTypingComplete && <span className="animate-pulse">|</span>}
+            </h1>
+            <div className="flex flex-col items-center gap-2">
+              <button
+                onClick={() => setPlantSize(prev => prev >= 3 ? 1 : prev + 0.3)}
+                className="cursor-pointer transition-transform hover:scale-105 focus:outline-none"
+                aria-label="Click to grow the plant"
+              >
+                <svg
+                  width="60"
+                  height="80"
+                  viewBox="0 0 60 80"
+                  style={{ transform: `scale(${plantSize})`, transition: 'transform 0.3s ease' }}
+                >
+                  {/* Pot */}
+                  <path
+                    d="M20 60 L15 75 L45 75 L40 60 Z"
+                    fill={isDarkMode ? '#7c3aed' : '#9333ea'}
+                    stroke={isDarkMode ? '#a855f7' : '#7c3aed'}
+                    strokeWidth="1.5"
+                  />
+                  {/* Soil */}
+                  <ellipse cx="30" cy="60" rx="10" ry="3" fill={isDarkMode ? '#4a5568' : '#2d3748'} />
+                  {/* Stem */}
+                  <line x1="30" y1="60" x2="30" y2="40" stroke={isDarkMode ? '#10b981' : '#059669'} strokeWidth="2.5" />
+                  {/* Left leaf */}
+                  <path
+                    d="M30 50 Q20 48 18 42"
+                    fill="none"
+                    stroke={isDarkMode ? '#34d399' : '#10b981'}
+                    strokeWidth="2"
+                  />
+                  <ellipse cx="18" cy="42" rx="6" ry="4" fill={isDarkMode ? '#34d399' : '#10b981'} />
+                  {/* Right leaf */}
+                  <path
+                    d="M30 50 Q40 48 42 42"
+                    fill="none"
+                    stroke={isDarkMode ? '#34d399' : '#10b981'}
+                    strokeWidth="2"
+                  />
+                  <ellipse cx="42" cy="42" rx="6" ry="4" fill={isDarkMode ? '#34d399' : '#10b981'} />
+                  {/* Flower */}
+                  <circle cx="30" cy="38" r="5" fill={isDarkMode ? '#f472b6' : '#ec4899'} />
+                  <circle cx="26" cy="36" r="4" fill={isDarkMode ? '#f472b6' : '#ec4899'} />
+                  <circle cx="34" cy="36" r="4" fill={isDarkMode ? '#f472b6' : '#ec4899'} />
+                  <circle cx="28" cy="32" r="4" fill={isDarkMode ? '#f472b6' : '#ec4899'} />
+                  <circle cx="32" cy="32" r="4" fill={isDarkMode ? '#f472b6' : '#ec4899'} />
+                  <circle cx="30" cy="35" r="3" fill={isDarkMode ? '#fde047' : '#facc15'} />
+                </svg>
+              </button>
+              <p className={`text-xs ${subtextColor} italic text-center`}>click me to grow!</p>
+            </div>
+          </div>
             
             {/* Tabbed Toggle */}
             <div className="flex gap-2 pt-4" role="tablist" aria-label="Project categories">
@@ -136,7 +216,7 @@ export default function WhatIDo() {
                 onKeyDown={(e) => handleKeyDown(e, 'software-engineering')}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                   activeTab === 'software-engineering'
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-purple-600 text-white'
                     : `${inactiveTabBg} ${inactiveTabText} ${inactiveTabHover}`
                 }`}
               >
@@ -150,7 +230,7 @@ export default function WhatIDo() {
                 onKeyDown={(e) => handleKeyDown(e, 'consulting')}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                   activeTab === 'consulting'
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-purple-600 text-white'
                     : `${inactiveTabBg} ${inactiveTabText} ${inactiveTabHover}`
                 }`}
               >
@@ -159,42 +239,74 @@ export default function WhatIDo() {
             </div>
 
             <p className="text-lg text-gray-300 leading-relaxed">
-              {currentData.subtitle}
+              {subtitleDisplayed}
+              {!isSubtitleComplete && <span className="animate-pulse">|</span>}
             </p>
           </section>
 
-          <section id="projects-panel" role="tabpanel" className="space-y-8">
+          <section id="projects-panel" role="tabpanel" className={activeTab === 'software-engineering' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : 'space-y-8'}>
             {currentData.projects.map((project) => (
-              <Link
-                key={project.slug}
-                to={`/what-i-do/${project.slug}`}
-                className="block group space-y-3 pb-8 border-b border-gray-800 last:border-0"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <h2 className="text-2xl font-semibold text-white group-hover:text-blue-400 transition-colors">
-                    {project.title}
-                  </h2>
-                  <span className={`text-sm ${yearColor} whitespace-nowrap mt-1`}>
-                    {project.year}
-                  </span>
-                </div>
-                <p className={`${subtextColor} leading-relaxed`}>
-                  {project.description}
-                </p>
-                <div className="flex gap-2">
-                  {project.categories.map((category) => (
-                    <span
-                      key={category}
-                      className={`inline-block px-3 py-1 text-xs font-medium ${tagText} ${tagBg} rounded-full`}
-                    >
-                      {category}
+              activeTab === 'software-engineering' ? (
+                <Link
+                  key={project.slug}
+                  to={`/what-i-do/${project.slug}`}
+                  className={`block group p-6 rounded-lg border ${borderColor} ${isDarkMode ? 'bg-gray-800/50 hover:bg-gray-800' : 'bg-white hover:bg-gray-50'} transition-all hover:border-purple-500 hover:shadow-lg`}
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <h2 className={`text-xl font-semibold ${textColor} ${hoverColor} transition-colors`}>
+                        {project.title}
+                      </h2>
+                      <span className={`text-xs ${yearColor} whitespace-nowrap mt-1`}>
+                        {project.year}
+                      </span>
+                    </div>
+                    <p className={`${subtextColor} text-sm leading-relaxed line-clamp-3`}>
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.categories.map((category) => (
+                        <span
+                          key={category}
+                          className={`inline-block px-2 py-1 text-xs font-medium ${tagText} ${tagBg} rounded-full`}
+                        >
+                          {category}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <Link
+                  key={project.slug}
+                  to={`/what-i-do/${project.slug}`}
+                  className={`block group space-y-3 pb-8 border-b ${borderColor} last:border-0`}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <h2 className={`text-2xl font-semibold ${textColor} ${hoverColor} transition-colors`}>
+                      {project.title}
+                    </h2>
+                    <span className={`text-sm ${yearColor} whitespace-nowrap mt-1`}>
+                      {project.year}
                     </span>
-                  ))}
-                </div>
-              </Link>
+                  </div>
+                  <p className={`${subtextColor} leading-relaxed`}>
+                    {project.description}
+                  </p>
+                  <div className="flex gap-2">
+                    {project.categories.map((category) => (
+                      <span
+                        key={category}
+                        className={`inline-block px-3 py-1 text-xs font-medium ${tagText} ${tagBg} rounded-full`}
+                      >
+                        {category}
+                      </span>
+                    ))}
+                  </div>
+                </Link>
+              )
             ))}
           </section>
-        </div>
       </div>
     </div>
   );
